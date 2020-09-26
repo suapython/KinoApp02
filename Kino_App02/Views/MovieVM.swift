@@ -10,26 +10,28 @@ import Combine
 
 class MovieVM: ObservableObject {
     
+    @Published var category: Endpoint
+    
     @Published var movies: [Movie] = []
+    
+    
     private var disposables = Set<AnyCancellable>()
      
-    
-    let urlComponents = makeURLComponents(path: "movie/popular", queries: [:])
-    
-    init() {
-        print("init")
-        getMovies()
+    init(category: Endpoint) {
+        self.category = category
+        getMovies(category: category)
     }
     
 }
 
 extension MovieVM {
     
-    func getMovies() {
+    func getMovies(category: Endpoint) {
+        let urlComponents = makeURLComponents(path: category.path(), queries: [:])
         print("get movies")
         APIClient().fetchMovie(with: urlComponents)
             .map { response in
-               // self.movies = response.movies
+               self.movies = response.movies
                 print("movies: \(self.movies)")
             }
             .receive(on: DispatchQueue.main)

@@ -9,11 +9,10 @@ import SwiftUI
 
 struct MoviesView: View {
     
-    @ObservedObject var viewModel = MovieVM()
+    @ObservedObject var viewModel: MovieVM
     
     var body: some View {
         VStack{
-            Text("\(viewModel.movies.count)")
         List(viewModel.movies) { movie in
             HStack {
                 VStack(alignment: .leading) {
@@ -30,6 +29,6 @@ struct MoviesView: View {
 
 struct MoviesView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviesView()
+        MoviesView(viewModel: MovieVM(category: .popular))
     }
 }

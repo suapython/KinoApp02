@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Endpoint {
+public enum Endpoint: Hashable {
         case popular, topRated, upcoming, nowPlaying, trending
         case movieDetail(movie: Int), recommended(movie: Int), similar(movie: Int), videos(movie: Int)
         case credits(movie: Int), review(movie: Int)
@@ -63,7 +63,27 @@ public enum Endpoint {
                 return "discover/movie"
             }
         }
+    
+    func title() -> String {
+        switch self {
+        case .popular:
+            return "movie/popular"
+        case .popularPersons:
+            return "person/popular"
+        case .topRated:
+            return "movie/top_rated"
+        case .upcoming:
+            return "movie/upcoming"
+        case .nowPlaying:
+            return "movie/now_playing"
+        case .trending:
+            return "trending/movie/day"
+        default:
+            return ""
+        }
     }
     
+}
+
     
     

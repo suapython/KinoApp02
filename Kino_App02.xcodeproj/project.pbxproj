@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B52072E2251F428900DC3BB2 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52072E1251F428900DC3BB2 /* MovieResponse.swift */; };
+		B58EA85E251FC52D00B6F45B /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58EA85D251FC52D00B6F45B /* MovieAPI.swift */; };
 		B5B99788251A8B8300A363A3 /* Kino_App02App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B99787251A8B8300A363A3 /* Kino_App02App.swift */; };
 		B5B9978A251A8B8300A363A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B99789251A8B8300A363A3 /* ContentView.swift */; };
 		B5B9978C251A8B8500A363A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5B9978B251A8B8500A363A3 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		B52072E1251F428900DC3BB2 /* MovieResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
+		B58EA85D251FC52D00B6F45B /* MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
 		B5B99784251A8B8300A363A3 /* Kino_App02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kino_App02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B99787251A8B8300A363A3 /* Kino_App02App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kino_App02App.swift; sourceTree = "<group>"; };
 		B5B99789251A8B8300A363A3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				B5B9979A251A8ED000A363A3 /* APIClient.swift */,
+				B58EA85D251FC52D00B6F45B /* MovieAPI.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				B5B997A5251B21F200A363A3 /* MovieVM.swift in Sources */,
 				B5B997A7251D37F400A363A3 /* MoviesView.swift in Sources */,
 				B52072E2251F428900DC3BB2 /* MovieResponse.swift in Sources */,
+				B58EA85E251FC52D00B6F45B /* MovieAPI.swift in Sources */,
 				B5B997A1251AA09F00A363A3 /* Endpoint.swift in Sources */,
 				B5B9979D251A8FFA00A363A3 /* Movie.swift in Sources */,
 			);

@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    var sections: [Endpoint] = [.popular,.topRated,.upcoming,.nowPlaying,.trending]
+    
     var body: some View {
-      MoviesView()
-            .onAppear {
-                let urlComponents = makeURLComponents(path: Endpoint.popular.path(), queries: [:])
-                print("url:", urlComponents )
-                let components = URLComponents(string: "https://twitter.com/twannl/photo.png?width=200&height=200")!
-                print("url2:", components.url! )
+        VStack{
+            ForEach(sections, id: \.self) { section in
+                Section(header: Text(section.title())) {
         
-            
-            }
+        MoviesView(viewModel: MovieVM(category: section))
             .padding()
-           
+                }
+            }
+        }
     }
 }
 
