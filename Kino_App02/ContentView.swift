@@ -9,8 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
+      MoviesView()
+            .onAppear {
+                let urlComponents = makeURLComponents(path: Endpoint.popular.path(), queries: [:])
+                print("url:", urlComponents )
+                let components = URLComponents(string: "https://twitter.com/twannl/photo.png?width=200&height=200")!
+                print("url2:", components.url! )
+        
+            
+            }
             .padding()
+           
     }
 }
 
