@@ -9,18 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    var sections: [Endpoint] = [.popular,.topRated,.upcoming,.nowPlaying,.trending]
+     
     
     var body: some View {
-        VStack{
-            ForEach(sections, id: \.self) { section in
-                Section(header: Text(section.title())) {
         
-        MoviesView(viewModel: MovieVM(category: section))
-            .padding()
-                }
-            }
-        }
+         MenuTabView()
     }
 }
 

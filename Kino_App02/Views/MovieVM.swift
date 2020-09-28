@@ -34,7 +34,6 @@ extension MovieVM {
                self.movies = response.movies
                 print("movies: \(self.movies)")
             }
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] value in
                 guard let self = self else { return }
                 switch value {
@@ -47,7 +46,7 @@ extension MovieVM {
                 }
               },
               receiveValue: { [weak self] response in
-                guard let self = self else { return }
+                guard self != nil else { return }
                 print("ok", response )
             })
            .store(in: &disposables)
