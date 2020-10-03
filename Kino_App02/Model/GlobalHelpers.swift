@@ -7,4 +7,6 @@
 
 import Foundation
 
- 
+var exampleMovie1 = Movie(movieId: 1, originalTitle: "Zelig", title: "Zelig" )
+
+var examplePerson1 = Person(personId: 1, name: "Woody Allen", knownForDepartment:  "Directing", profilePath: "http:woody/jpg")

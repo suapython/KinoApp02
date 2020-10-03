@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MenuTabView: View {
-    @State private var selectedView: Int = 0
+    @State private var selectedView: Int = 1
   var body: some View {
         TabView(selection: $selectedView) {
-           MovieLists()
+           MovieListContent()
               .tabItem({
                  Image(systemName: "film")
                  Text("Lists")

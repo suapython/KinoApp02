@@ -8,49 +8,55 @@
 import Foundation
 import Combine
 
-class MovieVM: ObservableObject {
+class MovieListVM: ObservableObject {
     
-    @Published var category: Endpoint
-    
-    @Published var movies: [Movie] = []
-    
+    @Published var category: Endpoint  
+    @Published var movies: [MovieRowVM] = []
     
     private var disposables = Set<AnyCancellable>()
      
     init(category: Endpoint) {
         self.category = category
-        getMovies(category: category)
     }
     
 }
 
-extension MovieVM {
+extension MovieListVM {
     
-    func getMovies(category: Endpoint) {
-        let urlComponents = makeURLComponents(path: category.path(), queries: [:])
-        print("get movies")
+    func getMovieLists(category: Endpoint) {
+        print("endpoint \(category.title())")
+        let urlComponents = APIClient().makeURLComponents(path: category.path(), queries: [:])
+        getMoviesUrl(urlComponents: urlComponents)
+            
+    }
+    
+    func getMoviesUrl(urlComponents: URLComponents) {
+         
         APIClient().fetchMovie(with: urlComponents)
             .map { response in
-               self.movies = response.movies
-                print("movies: \(self.movies)")
+                response.movies.map(MovieRowVM.init)
             }
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] value in
                 guard let self = self else { return }
                 switch value {
                 case .failure:
                     print("failure")
-                  self.movies = []
                 case .finished:
                     print("finished")
                   break
                 }
               },
-              receiveValue: { [weak self] response in
-                guard self != nil else { return }
-                print("ok", response )
+              receiveValue: { [weak self] value in
+                guard let self = self else { return  }
+                self.movies = value
+                print("value", self.movies)
             })
            .store(in: &disposables)
+        
     }
+    
+    
     
 }
 

@@ -8,6 +8,18 @@
 import Foundation
 
 
+// MARK:   MovieResponse
+
+struct MovieResponse: Decodable {
+    let movies: [Movie]
+
+    enum CodingKeys: String, CodingKey {
+        case movies = "results"
+    }
+}
+
+// MARK:   Movie 
+
 struct Movie: Decodable, Identifiable {
     var id = UUID()
     let movieId: Int
@@ -20,4 +32,3 @@ struct Movie: Decodable, Identifiable {
         case title
     }
 }
-

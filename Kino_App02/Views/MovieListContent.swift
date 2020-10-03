@@ -7,24 +7,23 @@
 
 import SwiftUI
 
-struct MovieLists: View {
+struct MovieListContent: View {
     var sections: [Endpoint] = [.popular,.topRated,.upcoming,.nowPlaying,.trending]
     
     var body: some View {
         VStack{
             ForEach(sections, id: \.self) { section in
                 Section(header: Text(section.title())) {
-        
-        MoviesView(viewModel: MovieVM(category: section))
-            .padding()
+                MovieListView(viewModel: MovieListVM(category: section))
+                        .padding()
                 }
             }
         }
     }
 }
 
-struct MovieLists_Previews: PreviewProvider {
+struct MovieListContent_Previews: PreviewProvider {
     static var previews: some View {
-        MovieLists()
+        MovieListContent()
     }
 }

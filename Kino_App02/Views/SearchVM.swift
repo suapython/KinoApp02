@@ -11,11 +11,13 @@ import Combine
 class SearchVM: ObservableObject, Identifiable {
  
   @Published var query: String = ""
-  @Published var queryOption: String = "movie"
+  @Published var searchFilter: SearchFilter = .movie
 
-  @Published var movies: [Movie] = []
+  @Published var movies: [MovieRowVM] = []
+  @Published var people: [PersonRowVM] = []
 
-
+   
+    
   private var disposables = Set<AnyCancellable>()
 
     init() {
@@ -24,48 +26,78 @@ class SearchVM: ObservableObject, Identifiable {
     $query
       .dropFirst(1) // to avoid the first call with empty string
       .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-      //  .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-      .removeDuplicates()
-      .sink(receiveValue: getMovies(query:))
+        .sink(receiveValue: {value in switch self.searchFilter {
+        case .movie:
+            self.getMovie(query: value)
+        case .person:
+            self.getPerson(query: value)} } )
       .store(in: &disposables)
         
-     getMovies(query: query)
   }
 
   
   
 }
 
-
- 
 extension SearchVM {
     
-    func getMovies(query: String) {
-        print("path ______  ","search/" + queryOption)
-        let urlComponents = makeURLComponents(path: "search/movie", queries:  ["query": query])
-        print("get movies")
+    
+    func getMovie(query: String) {
+        let urlComponents = APIClient().makeURLComponents(path: "search/movie", queries:  ["query": query])
+        print("url:\(urlComponents)")
         APIClient().fetchMovie(with: urlComponents)
             .map { response in
-               self.movies = response.movies
-                print("movies: \(self.movies)")
+                response.movies.map(MovieRowVM.init)
             }
-            .sink(receiveCompletion: { [weak self] value in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
-                switch value {
+                switch completion {
                 case .failure:
-                    print("failure")
-                  self.movies = []
+                    print("failure \(completion)")
+                    self.movies = []
                 case .finished:
                     print("finished")
                   break
                 }
               },
-              receiveValue: { [weak self] response in
-                guard self != nil else { return }
-                print("ok", response )
+              receiveValue: { [weak self] value in
+                guard let self = self else { return  }
+                self.movies = value
+                print("get value \(self.movies)")
             })
            .store(in: &disposables)
+        
     }
+    
+  func getPerson(query: String) {
+    let urlComponents = APIClient().makeURLComponents(path: "search/person", queries:  ["query": query])
+        print("url:\(urlComponents)")
+        APIClient().fetchPerson(with: urlComponents)
+            .map { response in
+                response.people.map(PersonRowVM.init)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case .failure:
+                    print("failure: \(completion)")
+                    self.people = []
+                case .finished:
+                    print("finished")
+                  break
+                }
+              },
+              receiveValue: { [weak self] value in
+                guard let self = self else { return  }
+                self.people = value
+                print("get value \(self.people)")
+            })
+           .store(in: &disposables)
+        
+    }
+   
     
 }
 
