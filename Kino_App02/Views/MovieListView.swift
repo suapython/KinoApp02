@@ -13,7 +13,6 @@ struct MovieListView: View {
     
     var body: some View {
         VStack{
-            Text("\(viewModel.movies.count)")
         List(viewModel.movies) { movieRowVM in
             MovieRowView(viewModel: movieRowVM)
         }

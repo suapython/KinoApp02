@@ -14,6 +14,7 @@ struct SearchView: View {
       self.viewModel = viewModel
     }
 
+    
     var body: some View {
         NavigationView {
           List {

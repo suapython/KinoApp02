@@ -17,31 +17,28 @@ class MovieListVM: ObservableObject {
      
     init(category: Endpoint) {
         self.category = category
+        getMovieList(category: category)
     }
     
 }
 
 extension MovieListVM {
     
-    func getMovieLists(category: Endpoint) {
-        print("endpoint \(category.title())")
-        let urlComponents = APIClient().makeURLComponents(path: category.path(), queries: [:])
-        getMoviesUrl(urlComponents: urlComponents)
-            
-    }
     
-    func getMoviesUrl(urlComponents: URLComponents) {
-         
+    func getMovieList(category: Endpoint) {
+        let urlComponents = APIClient().makeURLComponents(path: category.path(), queries: [:])
+        print("url:\(urlComponents)")
         APIClient().fetchMovie(with: urlComponents)
             .map { response in
                 response.movies.map(MovieRowVM.init)
             }
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] value in
+            .sink(receiveCompletion: { [weak self] completion in
                 guard let self = self else { return }
-                switch value {
+                switch completion {
                 case .failure:
-                    print("failure")
+                    print("failure \(completion)")
+                    self.movies = []
                 case .finished:
                     print("finished")
                   break
@@ -50,11 +47,15 @@ extension MovieListVM {
               receiveValue: { [weak self] value in
                 guard let self = self else { return  }
                 self.movies = value
-                print("value", self.movies)
+                print("get value \(self.movies)")
             })
            .store(in: &disposables)
         
     }
+    
+    
+    
+     
     
     
     
