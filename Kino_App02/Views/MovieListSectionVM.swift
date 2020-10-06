@@ -8,24 +8,24 @@
 import Foundation
 import Combine
 
-class MovieListVM: ObservableObject {
+class MovieListSectionVM: ObservableObject {
     
-    @Published var category: Endpoint  
+    @Published var category: CategoryEnum  
     @Published var movies: [MovieRowVM] = []
     
     private var disposables = Set<AnyCancellable>()
      
-    init(category: Endpoint) {
+    init(category: CategoryEnum) {
         self.category = category
         getMovieList(category: category)
     }
     
 }
 
-extension MovieListVM {
+extension MovieListSectionVM {
     
     
-    func getMovieList(category: Endpoint) {
+    func getMovieList(category: CategoryEnum) {
         let urlComponents = APIClient().makeURLComponents(path: category.path(), queries: [:])
         print("url:\(urlComponents)")
         APIClient().fetchMovie(with: urlComponents)

@@ -24,7 +24,6 @@ class SearchVM: ObservableObject, Identifiable {
      
     
     $query
-      //.dropFirst(1) // to avoid the first call with empty string
       .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
         .sink(receiveValue: {value in switch self.searchFilter {
         case .movie:
@@ -41,6 +40,7 @@ class SearchVM: ObservableObject, Identifiable {
 
 extension SearchVM {
     
+     
     
     func getMovie(query: String) {
         let urlComponents = APIClient().makeURLComponents(path: "search/movie", queries:  ["query": query])

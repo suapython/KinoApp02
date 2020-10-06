@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Endpoint: Hashable {
+public enum CategoryEnum: Hashable {
         case popular, topRated, upcoming, nowPlaying, trending
         case movieDetail(movie: Int), recommended(movie: Int), similar(movie: Int), videos(movie: Int)
         case credits(movie: Int), review(movie: Int)

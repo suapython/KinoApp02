@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct MovieListView: View {
+struct MovieListSection: View {
     
-    @ObservedObject var viewModel: MovieListVM
+    @ObservedObject var viewModel: MovieListSectionVM
     
     var body: some View {
         VStack{
@@ -20,9 +20,9 @@ struct MovieListView: View {
     }
 }
 
-struct MovieListView_Previews: PreviewProvider {
+struct MovieListSection_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(viewModel: MovieListVM(category: .popular))
+        MovieListSection(viewModel: MovieListSectionVM(category: .popular))
     }
 }
  

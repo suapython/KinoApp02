@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct MovieListContent: View {
-    var sections: [Endpoint] = [.popular,.topRated,.upcoming,.nowPlaying,.trending]
+    var sections: [CategoryEnum] = [.popular,.topRated,.upcoming,.nowPlaying,.trending]
     
     var body: some View {
         VStack{
             ForEach(sections, id: \.self) { section in
                 Section(header: Text(section.title())) {
-                MovieListView(viewModel: MovieListVM(category: section))
+                MovieListSection(viewModel: MovieListSectionVM(category: section))
                         .padding()
                 }
             }
